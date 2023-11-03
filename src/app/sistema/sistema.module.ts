@@ -6,6 +6,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { SistemaRoutingModule } from './sistema-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { mesAnoFeatureKey, mesAnoReducer } from './store/sistema.reducer';
+import { EntradaSaidaModule } from './EntradaSaidaModule/entrada-saida.module';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { mesAnoFeatureKey, mesAnoReducer } from './store/sistema.reducer';
   imports: [
     CommonModule,
     SistemaRoutingModule,
+    EntradaSaidaModule,
     MatSidenavModule,
     MatButtonModule,
     StoreModule.forFeature(mesAnoFeatureKey, mesAnoReducer)
