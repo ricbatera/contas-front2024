@@ -21,12 +21,15 @@ import {MatTabsModule} from '@angular/material/tabs';
   imports: [
     CommonModule,
     SistemaRoutingModule,
-    EntradaSaidaModule,
+    //EntradaSaidaModule,
     MatSidenavModule,
     MatButtonModule,
     MatTabsModule,
     StoreModule.forFeature(mesAnoFeatureKey, mesAnoReducer),
     StoreModule.forFeature(menuSelectedFeatureKey, menuSelectedReducer),
+  ],
+  exports:[
+    TabCompomentsComponent
   ]
 })
 export class SistemaModule { }
