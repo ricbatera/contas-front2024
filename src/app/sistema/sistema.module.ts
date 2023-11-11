@@ -6,11 +6,12 @@ import {MatButtonModule} from '@angular/material/button';
 import { SistemaRoutingModule } from './sistema-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { menuSelectedFeatureKey, menuSelectedReducer, mesAnoFeatureKey, mesAnoReducer } from './store/sistema.reducer';
-import { EntradaSaidaModule } from './EntradaSaidaModule/entrada-saida.module';
 import { TabCompomentsComponent } from './components/tab-compoments/tab-compoments.component';
 
 //Angular material
 import {MatTabsModule} from '@angular/material/tabs';
+import { EntradaSaidaModule } from './EntradaSaidaModule/entrada-saida.module';
+import { CadastrosModule } from './cadastros/cadastros.module';
 
 
 @NgModule({
@@ -21,8 +22,9 @@ import {MatTabsModule} from '@angular/material/tabs';
   imports: [
     CommonModule,
     SistemaRoutingModule,
-    //EntradaSaidaModule,
     MatSidenavModule,
+    // EntradaSaidaModule,
+    // CadastrosModule,
     MatButtonModule,
     MatTabsModule,
     StoreModule.forFeature(mesAnoFeatureKey, mesAnoReducer),

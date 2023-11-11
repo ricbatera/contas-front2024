@@ -6,7 +6,7 @@ import { IMenuSelected } from '../../store/sistema.state';
 import { setTabMenu } from '../../store/sistema.actions';
 
 @Component({
-  selector: 'app-tab-compoments',
+  selector: 'app-tab',
   templateUrl: './tab-compoments.component.html',
   styleUrls: ['./tab-compoments.component.css']
 })
