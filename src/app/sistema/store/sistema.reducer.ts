@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
-import { IMesAnoState } from "./sistema.state";
-import { setMesAnoInicialFinal } from "./sistema.actions";
+import { IMenuSelected, IMesAnoState } from "./sistema.state";
+import { setMenuSelected, setMesAnoInicialFinal, setTabMenu } from "./sistema.actions";
 
 export const mesAnoInitial: IMesAnoState ={
     firstLoad: true,
@@ -20,4 +20,25 @@ export const mesAnoReducer = createReducer(mesAnoInitial,
         firstLoad: false,
         mesAno: payload
     }))
+);
+
+// estado do menu slecionado e suas configurações
+export const menuSelectedInitial: IMenuSelected = {
+    nome: "",
+    tabDefault: 0,
+    configs: {
+        titulo: "",
+        menus: []
+    }
+}
+export const menuSelectedFeatureKey = 'mesAnoState';
+
+export const menuSelectedReducer = createReducer(menuSelectedInitial,
+    on(setMenuSelected, (state, {payload})=>({
+        ...payload
+    })),
+    on(setTabMenu, (state, {payload})=>({
+        ...state,
+        tabDefault: payload
+    })),
 );

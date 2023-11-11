@@ -5,13 +5,18 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import { SistemaRoutingModule } from './sistema-routing.module';
 import { StoreModule } from '@ngrx/store';
-import { mesAnoFeatureKey, mesAnoReducer } from './store/sistema.reducer';
+import { menuSelectedFeatureKey, menuSelectedReducer, mesAnoFeatureKey, mesAnoReducer } from './store/sistema.reducer';
 import { EntradaSaidaModule } from './EntradaSaidaModule/entrada-saida.module';
+import { TabCompomentsComponent } from './components/tab-compoments/tab-compoments.component';
+
+//Angular material
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
   declarations: [
-    SistemaComponent
+    SistemaComponent,
+    TabCompomentsComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +24,9 @@ import { EntradaSaidaModule } from './EntradaSaidaModule/entrada-saida.module';
     EntradaSaidaModule,
     MatSidenavModule,
     MatButtonModule,
-    StoreModule.forFeature(mesAnoFeatureKey, mesAnoReducer)
+    MatTabsModule,
+    StoreModule.forFeature(mesAnoFeatureKey, mesAnoReducer),
+    StoreModule.forFeature(menuSelectedFeatureKey, menuSelectedReducer),
   ]
 })
 export class SistemaModule { }

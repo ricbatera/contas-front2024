@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SistemaComponent } from './sistema.component';
+import { CadastrosComponent } from './cadastros/cadastros.component';
+import { SaidasComponent } from './EntradaSaidaModule/saidas/saidas.component';
+import { EntradasComponent } from './EntradaSaidaModule/entradas/entradas.component';
 // import { CadastrosComponent } from './sistema/cadastros/cadastros/cadastros.component';
 // import { DashboardComponent } from './sistema/dashboard/dashboard/dashboard.component';
 // import { EntradasComponent } from './sistema/entradas/entradas/entradas.component';
@@ -10,10 +13,10 @@ import { SistemaComponent } from './sistema.component';
 const routes: Routes = [
   {path:'', component: SistemaComponent, children:[ 
     // {path:'gra', component: GrafCategoriasComponent},
-    // {path:'cadastros', component: CadastrosComponent},
+    {path:'cadastros', component: CadastrosComponent},
     // {path:'dashboard', component: DashboardComponent},
-    // {path:'saidas', component: SaidasComponent},
-    // {path:'entradas', component: EntradasComponent},
+    {path:'saidas', component: SaidasComponent},
+    {path:'entradas', component: EntradasComponent},
   ]}
 ];
 

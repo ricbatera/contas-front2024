@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SaidasComponent } from './saidas.component';
+import { EntradasComponent } from './entradas.component';
 
 
 
 @NgModule({
   declarations: [
-    SaidasComponent
+    EntradasComponent
   ],
   imports: [
     CommonModule
   ]
 })
-export class SaidasModule { }
+export class EntradasModule { }
