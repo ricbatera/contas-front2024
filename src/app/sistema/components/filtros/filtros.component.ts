@@ -31,7 +31,7 @@ export class FiltrosComponent{
     });
     this.menuSelected$ = store.select(getMenuSelectedConfigs);
   }
-  ngAfterViewInit(): void {
+  ngAfterContentInit(): void {
     this.store.select(getMesAno).subscribe(res=>{
       const result: MesAno = {...res}
       this.mesInicial.setValue(`${result.mesStart}`);
@@ -40,9 +40,4 @@ export class FiltrosComponent{
       this.anoFinal.setValue(`${result.anoEnd}`);
     })
   }
-
-  meesInicialHandler(e: any){
-    console.log(e);
-  }
-
 }
