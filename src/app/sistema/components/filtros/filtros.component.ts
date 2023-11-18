@@ -7,6 +7,8 @@ import { meses } from 'src/model/general/meses';
 import { getLoadMesAno, getMenuSelectedConfigs, getMesAno } from '../../store/sistema..selectors';
 import { MesAno } from 'src/model/config/mes-ano';
 import { IMenuSelected } from '../../store/sistema.state';
+import { getFirtLoadDevedores } from '../../cadastros/store/cadastro.selectors';
+import { loadDevedores } from '../../cadastros/store/cadastro.actions';
 
 @Component({
   selector: 'app-filtros',
@@ -38,6 +40,12 @@ export class FiltrosComponent{
       this.mesFinal.setValue(`${result.mesEnd}`);
       this.anoInicial.setValue(`${result.anoStart}`);
       this.anoFinal.setValue(`${result.anoEnd}`);
+    });
+    this.store.select(getFirtLoadDevedores).subscribe(res=>{
+      console.log("Devedores")
+      if(res){
+        this.store.dispatch(loadDevedores());
+      }
     })
   }
 }

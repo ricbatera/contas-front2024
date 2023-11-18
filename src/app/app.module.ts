@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 // STORE (NgRx)
 import { StoreModule } from '@ngrx/store';
@@ -16,6 +17,8 @@ import ptBr from '@angular/common/locales/pt';
 //MÓDULOS DO SISTEMA
 import { SistemaModule } from './sistema/sistema.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { CadastrosModule } from './sistema/cadastros/cadastros.module';
+import { CadastrosEffects } from './sistema/cadastros/store/cadastro.effects';
 
 registerLocaleData(ptBr);
 @NgModule({
@@ -24,12 +27,14 @@ registerLocaleData(ptBr);
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    HttpClientModule,
+    SistemaModule,
+    CadastrosModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
-    SistemaModule,
     BrowserAnimationsModule,
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
+    AppRoutingModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [
     {provide: LOCALE_ID, useValue:'pt'}
