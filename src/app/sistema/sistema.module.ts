@@ -20,6 +20,8 @@ import { EntradaSaidaModule } from './EntradaSaidaModule/entrada-saida.module';
 import { CadastrosModule } from './cadastros/cadastros.module';
 import { FiltrosComponent } from './components/filtros/filtros.component';
 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { FiltrosComponent } from './components/filtros/filtros.component';
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
     StoreModule.forFeature(mesAnoFeatureKey, mesAnoReducer),
     StoreModule.forFeature(menuSelectedFeatureKey, menuSelectedReducer),
   ],

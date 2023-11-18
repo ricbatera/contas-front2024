@@ -8,7 +8,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { CadastrosEffects } from './store/cadastro.effects';
 
 
-
 @NgModule({
   declarations: [
     CadastrosComponent,
