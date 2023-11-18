@@ -1,0 +1,28 @@
+<div class="content" *ngIf="menuSelected$ | async as estado">
+    <mat-form-field>
+        <mat-label *ngIf="estado.nome == 'entrada' || estado.nome == 'saida'">Mês</mat-label>
+        <mat-label *ngIf="estado.nome != 'entrada' && estado.nome != 'saida'">Mês Inical</mat-label>
+        <mat-select [formControl]="mesInicial">
+            <mat-option *ngFor="let item of meses$ | async" value="{{item.id}}">{{item.mes}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label *ngIf="estado.nome == 'entrada' || estado.nome == 'saida'">Ano</mat-label>
+        <mat-label *ngIf="estado.nome != 'entrada' && estado.nome != 'saida'">Ano Inical</mat-label>
+        <mat-select [formControl]="anoInicial">
+            <mat-option *ngFor="let item of anos$ | async" value="{{item}}">{{item}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="estado.nome != 'entrada' && estado.nome != 'saida'">
+        <mat-label>Mês Final</mat-label>
+        <mat-select [formControl]="mesFinal">
+            <mat-option *ngFor="let item of meses$ | async" value="{{item.id}}">{{item.mes}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="estado.nome != 'entrada' && estado.nome != 'saida'">
+        <mat-label>Ano Final</mat-label>
+        <mat-select [formControl]="anoFinal">
+            <mat-option *ngFor="let item of anos$ | async" value="{{item}}">{{item}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>

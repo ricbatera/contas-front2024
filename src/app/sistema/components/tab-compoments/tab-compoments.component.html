@@ -1,12 +1,12 @@
-
 <div *ngIf="configs$ | async as config">
     <div id="saida" *ngIf="config.nome == 'saida'">
-        <mat-tab-group mat-align-tabs="start" [selectedIndex]="config.tabDefault" (selectedIndexChange)="setaTab($event)">
+        <mat-tab-group mat-align-tabs="start" [selectedIndex]="config.tabDefault"
+            (selectedIndexChange)="setaTab($event)">
             <mat-tab label="Nova Saída">
                 <!-- <app-nova-saida></app-nova-saida> -->
             </mat-tab>
             <mat-tab label="Lista de Saídas">
-                <!-- <app-nova-saida></app-nova-saida> -->
+                <app-filtros></app-filtros>
             </mat-tab>
             <mat-tab label="Detalhes">
                 <!-- <app-nova-saida></app-nova-saida> -->
@@ -15,12 +15,13 @@
     </div>
 
     <div id="entrada" *ngIf="config.nome == 'entrada'">
-        <mat-tab-group mat-align-tabs="start" [selectedIndex]="config.tabDefault" (selectedIndexChange)="setaTab($event)">
+        <mat-tab-group mat-align-tabs="start" [selectedIndex]="config.tabDefault"
+            (selectedIndexChange)="setaTab($event)">
             <mat-tab label="Nova Entrada">
                 <!-- <app-nova-saida></app-nova-saida> -->
             </mat-tab>
             <mat-tab label="Lista de Entradas">
-                <!-- <app-nova-saida></app-nova-saida> -->
+                <app-filtros></app-filtros>
             </mat-tab>
             <mat-tab label="Detalhes">
                 <!-- <app-nova-saida></app-nova-saida> -->
@@ -29,9 +30,10 @@
     </div>
 
     <div id="cadastros" *ngIf="config.nome == 'cadastros'">
-        <mat-tab-group mat-align-tabs="start" [selectedIndex]="config.tabDefault" (selectedIndexChange)="setaTab($event)">
+        <mat-tab-group mat-align-tabs="start" [selectedIndex]="config.tabDefault"
+            (selectedIndexChange)="setaTab($event)">
             <mat-tab label="Contas Bancárias">
-                <!-- <app-nova-saida></app-nova-saida> -->
+                <app-filtros></app-filtros>
             </mat-tab>
             <mat-tab label="Cartões de Crédito">
                 <!-- <app-nova-saida></app-nova-saida> -->

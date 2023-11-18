@@ -25,9 +25,9 @@ registerLocaleData(ptBr);
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SistemaModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
+    SistemaModule,
     BrowserAnimationsModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],

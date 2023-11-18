@@ -1,0 +1,9 @@
+.content{
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+mat-form-field{
+    max-width: 130px;
+}

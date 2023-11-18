@@ -15,11 +15,12 @@ export const mesAnoInitial: IMesAnoState ={
 export const mesAnoFeatureKey = 'mesAnoState';
 
 export const mesAnoReducer = createReducer(mesAnoInitial,
-    on(setMesAnoInicialFinal, (state, {payload})=>({
+    on(setMesAnoInicialFinal, (state, {payload})=>{
+        return {
         ...state,
         firstLoad: false,
         mesAno: payload
-    }))
+    }})
 );
 
 // estado do menu slecionado e suas configurações
@@ -31,7 +32,7 @@ export const menuSelectedInitial: IMenuSelected = {
         menus: []
     }
 }
-export const menuSelectedFeatureKey = 'mesAnoState';
+export const menuSelectedFeatureKey = 'menuState';
 
 export const menuSelectedReducer = createReducer(menuSelectedInitial,
     on(setMenuSelected, (state, {payload})=>({
