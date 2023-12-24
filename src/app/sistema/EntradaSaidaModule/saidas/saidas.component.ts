@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IMenuSelected } from '../../store/sistema.state';
 import { setMenuSelected } from '../../store/sistema.actions';
-import { getFirtLoadListaSaidas, getListaMesesAnosCarregados, } from '../store/entradasSaidas.selectors';
+import { getFirtLoadListaSaidas, getListaMesesAnosCarregados, getListaSaidasByFiltro, } from '../store/entradasSaidas.selectors';
 import { getMesAno } from '../../store/sistema..selectors';
 import { loadListaSaidas } from '../store/entradasSaidas.actions';
 import { MesAno } from 'src/model/config/mes-ano';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
+import { ItemListaSaidaApi } from 'src/model/general/item-lista-saida-api';
 
 @Component({
   selector: 'app-saidas',
@@ -16,6 +17,8 @@ import { Subject, Subscription, takeUntil } from 'rxjs';
 export class SaidasComponent {
 
   private unsubscribe = new Subject<void>;
+
+  dataSource$: Observable<ItemListaSaidaApi[]>
 
   estadoInicial: IMenuSelected = {
     nome: 'saida',
@@ -42,8 +45,9 @@ export class SaidasComponent {
       this.listenFiltroChanged(`${this.filtroAtual.mesStart}-${this.filtroAtual.anoStart}`);
     });
     store.select(getListaMesesAnosCarregados).pipe(takeUntil(this.unsubscribe)).subscribe(res=> this.mesesAnosCarregados = res);
+    this.dataSource$ = store.select(getListaSaidasByFiltro(`${this.filtroAtual.anoStart}-${this.filtroAtual.mesStart}`)).pipe(takeUntil(this.unsubscribe));
   }
-
+  
   listenFiltroChanged(param: string){
     console.log("Validando dados já carregados...");
     let recarrega = true;
@@ -56,15 +60,16 @@ export class SaidasComponent {
       console.log(`Carregando dados. Ano ${this.filtroAtual.anoStart}. Mes ${this.filtroAtual.mesStart}`)
       this.store.dispatch(loadListaSaidas({ payload: this.filtroAtual }));
     };
+    this.dataSource$ = this.store.select(getListaSaidasByFiltro(`${this.filtroAtual.anoStart}-${this.filtroAtual.mesStart}`)).pipe(takeUntil(this.unsubscribe));
+    //this.dataSource$.subscribe(res=>{console.table(res)})
   }
 
   ngAfterContentInit(): void {
-    // this.store.select(getFirtLoadListaSaidas).subscribe(res => {
-    //   if (res) {
-    //     console.log(`Iniciando o módulo de saídas, carregando a lista de saidas`)
-    //     //this.store.dispatch(loadListaSaidas({ payload: this.filtroAtual }));
-    //   }
-    // });
+    
+  }
+
+  carregaListaByfiltro(){
+    
   }
 
   ngOnDestroy() {

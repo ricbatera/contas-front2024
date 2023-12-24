@@ -12,7 +12,7 @@ import { loadDevedores } from '../../cadastros/store/cadastro.actions';
 import { Devedor } from 'src/model/general/devedor';
 import { FiltrosService } from 'src/app/services/filtros.service';
 import filtrosType from 'src/model/config/filtros-enum';
-import { setAnoInicial, setMesAnoInicialFinal } from '../../store/sistema.actions';
+import {setMesAnoInicialFinal } from '../../store/sistema.actions';
 
 @Component({
   selector: 'app-filtros',

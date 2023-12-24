@@ -36,6 +36,5 @@ const getMesAnoByData =  (param: string): string =>{
     let data = new Date(param);
     resul = `${data.getMonth()+1}-`
     resul = `${resul}${data.getFullYear()}`
-    console.log(resul);
     return resul;
   }
