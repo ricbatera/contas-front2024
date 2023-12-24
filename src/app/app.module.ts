@@ -19,6 +19,9 @@ import { SistemaModule } from './sistema/sistema.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CadastrosModule } from './sistema/cadastros/cadastros.module';
 import { CadastrosEffects } from './sistema/cadastros/store/cadastro.effects';
+import { EntradaSaidaModule } from './sistema/EntradaSaidaModule/entrada-saida.module';
+import { SaidasModule } from './sistema/EntradaSaidaModule/saidas/saidas.module';
+import { EntradasModule } from './sistema/EntradaSaidaModule/entradas/entradas.module';
 
 registerLocaleData(ptBr);
 @NgModule({
@@ -30,6 +33,8 @@ registerLocaleData(ptBr);
     HttpClientModule,
     SistemaModule,
     CadastrosModule,
+    // SaidasModule,
+    // EntradasModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     BrowserAnimationsModule,

@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Devedor } from 'src/model/general/devedor';
+import { ItemListaSaidaApi } from 'src/model/general/item-lista-saida-api';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,9 @@ export class DatabaseService {
 
   getDevedoresFull(): Observable<Devedor[]> {
     return this.httpClient.get<Devedor[]>(`${this.API_URL}cadastros/devedor/listar-devedores`);
+  }
+  getitensSaida(mes: number, ano: number): Observable<ItemListaSaidaApi[]> {
+    return this.httpClient.get<ItemListaSaidaApi[]>(`${this.API_URL}saidas/listar-mensal?mes=${mes}&ano=${ano}&tags=All`);
   }
 
 

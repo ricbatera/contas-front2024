@@ -5,7 +5,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import { SistemaRoutingModule } from './sistema-routing.module';
 import { StoreModule } from '@ngrx/store';
-import { menuSelectedFeatureKey, menuSelectedReducer, mesAnoFeatureKey, mesAnoReducer } from './store/sistema.reducer';
+import { filtrosFeatureKey, filtrosReducer, menuSelectedFeatureKey, menuSelectedReducer,  } from './store/sistema.reducer';
 import { TabCompomentsComponent } from './components/tab-compoments/tab-compoments.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,6 +21,9 @@ import { CadastrosModule } from './cadastros/cadastros.module';
 import { FiltrosComponent } from './components/filtros/filtros.component';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { EffectsModule } from '@ngrx/effects';
+import { ESEffects } from './EntradaSaidaModule/store/entradasSaidas.effects';
+import { listaSaidaKey, listaSaidaReducer } from './EntradaSaidaModule/store/entradasSaidas.reducer';
 
 
 @NgModule({
@@ -43,8 +46,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ReactiveFormsModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    StoreModule.forFeature(mesAnoFeatureKey, mesAnoReducer),
+    StoreModule.forFeature(filtrosFeatureKey, filtrosReducer),
     StoreModule.forFeature(menuSelectedFeatureKey, menuSelectedReducer),
+    StoreModule.forFeature(listaSaidaKey, listaSaidaReducer),    
+    EffectsModule.forFeature([ESEffects])
   ],
   exports:[
     TabCompomentsComponent

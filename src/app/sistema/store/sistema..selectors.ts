@@ -1,11 +1,14 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { IMenuSelected, IMesAnoState } from "./sistema.state";
-import { menuSelectedFeatureKey, mesAnoFeatureKey } from "./sistema.reducer";
+import { IFiltrosState, IMenuSelected,  } from "./sistema.state";
+import { filtrosFeatureKey, menuSelectedFeatureKey,  } from "./sistema.reducer";
 
-const mesAnoState = createFeatureSelector<IMesAnoState>(mesAnoFeatureKey);
+const mesAnoState = createFeatureSelector<IFiltrosState>(filtrosFeatureKey);
 
 export const getLoadMesAno = createSelector(mesAnoState, state=> state.firstLoad);
 export const getMesAno = createSelector(mesAnoState, state=> state.mesAno);
+export const getDevedorId = createSelector(mesAnoState, state=> state.devedorId);
+export const getStateFull = createSelector(mesAnoState, state=> state);
+
 
 //menu selecionado
 const menuSelectedState = createFeatureSelector<IMenuSelected>(menuSelectedFeatureKey);

@@ -1,20 +1,27 @@
 import { createReducer, on } from "@ngrx/store";
-import { IMenuSelected, IMesAnoState } from "./sistema.state";
+import { IFiltrosState, IMenuSelected,  } from "./sistema.state";
 import { setMenuSelected, setMesAnoInicialFinal, setTabMenu } from "./sistema.actions";
 
-export const mesAnoInitial: IMesAnoState ={
+export const mesAnoInitial: IFiltrosState ={
     firstLoad: true,
     mesAno: {
         mesStart: 0,
         anoStart: 0,
         mesEnd: 0,
         anoEnd: 0
-    }
+    },
+    devedorId: -1,
+    status: "",
+    tagId: -1,
+    anosSaidaLoaded: [],
+    mesesSaidaLoaded: [],
+    anosEntradaLoaded: [],
+    mesesEntradaLoaded: []
 }
 
-export const mesAnoFeatureKey = 'mesAnoState';
+export const filtrosFeatureKey = 'filtrosState';
 
-export const mesAnoReducer = createReducer(mesAnoInitial,
+export const filtrosReducer = createReducer(mesAnoInitial,
     on(setMesAnoInicialFinal, (state, {payload})=>{
         return {
         ...state,

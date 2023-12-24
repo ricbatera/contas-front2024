@@ -1,8 +1,15 @@
 import { MesAno } from "src/model/config/mes-ano";
 
-export interface IMesAnoState{
+export interface IFiltrosState{
     firstLoad: boolean,
-    mesAno:MesAno
+    mesAno:MesAno,
+    devedorId: number,
+    status: string,
+    tagId:number
+    anosSaidaLoaded:[],
+    mesesSaidaLoaded:[],
+    anosEntradaLoaded:[],
+    mesesEntradaLoaded:[]
 }
 
 export interface IMenuSelected {

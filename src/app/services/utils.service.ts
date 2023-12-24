@@ -74,4 +74,12 @@ export class UtilsService {
     }
   }
 
+  public getMesAnoByData =  (param: string): string =>{
+    let resul:string = ''
+    let data = new Date(param);
+    resul = `${data.getMonth()+1}-${data.getFullYear()}`;
+    console.log(resul)
+    return resul;
+  }
+
 }
