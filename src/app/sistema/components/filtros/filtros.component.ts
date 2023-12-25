@@ -13,6 +13,7 @@ import { Devedor } from 'src/model/general/devedor';
 import { FiltrosService } from 'src/app/services/filtros.service';
 import filtrosType from 'src/model/config/filtros-enum';
 import {setMesAnoInicialFinal } from '../../store/sistema.actions';
+import { getListaClassificacao, getListaMeiosPagto, getListaStatus } from '../../EntradaSaidaModule/store/entradasSaidas.selectors';
 
 @Component({
   selector: 'app-filtros',
@@ -24,11 +25,17 @@ export class FiltrosComponent implements OnInit{
   meses$: Observable<meses[]>;
   anos$: Observable<number[]>;
   devedores$: Observable<Devedor[]>;
+  status$: Observable<string[]>;
+  tags$: Observable<string[]>;
+  meioPagto$: Observable<string[]>;
   mesInicial = new FormControl();
   mesFinal = new FormControl();
   anoInicial = new FormControl();
   anoFinal = new FormControl();
   devedor = new FormControl();
+  status = new FormControl();
+  tag = new FormControl();
+  meioPagto = new FormControl();
   getLoadMesAno: boolean = false;
   menuSelected$: Observable<IMenuSelected>;
   atual: MesAno = {
@@ -38,6 +45,9 @@ export class FiltrosComponent implements OnInit{
     anoEnd: 0
   }
   firstLoad = true;
+  //se o menu selecionado for o de saídas
+
+  //se o menu selecionar for o de entradas
 
   constructor(private util:UtilsService, private store:Store, private filtrosService: FiltrosService){
     this.meses$ = util.getMeses;
@@ -47,7 +57,10 @@ export class FiltrosComponent implements OnInit{
     });
     this.menuSelected$ = store.select(getMenuSelectedConfigs);
     store.select(getLoadingDevedor).subscribe(res => this.loading = res);
-    this.devedores$ = store.select(getDevedoresAtivos);    
+    this.devedores$ = store.select(getDevedoresAtivos);  
+    this.status$ = store.select(getListaStatus);
+    this.meioPagto$ = store.select(getListaMeiosPagto);
+    this.tags$ = store.select(getListaClassificacao);
   }
   
   handleSelectsChanged(){
@@ -98,5 +111,35 @@ export class FiltrosComponent implements OnInit{
         this.store.select(getDevedorId).subscribe(idDevedor => this.devedor.setValue(`${[idDevedor]}`));
       }
     });
+    this.meioPagto$.pipe(take(1)).subscribe(item=>{
+      if(item.length >0){
+        this.meioPagto.setValue(`${item[0]}`);
+      }
+    });
+    this.status$.pipe(take(1)).subscribe(item=>{
+      if(item.length >0){
+        this.status.setValue(`${item[0]}`);
+      }
+    });
+    this.tags$.pipe(take(1)).subscribe(item=>{
+      if(item.length >0){
+        this.tag.setValue(`${item[0]}`);
+      }
+    });
+  }
+  loadFiltrosDefaul(){
+    this.menuSelected$.subscribe(res=>{
+      switch (res.nome) {
+        case 'saida':
+          
+          break;
+        case 'entrada':
+          
+          break;
+      
+        default:
+          break;
+      }
+    })
   }
 }

@@ -32,4 +32,25 @@
             <mat-option *ngFor="let devedor of devedores$| async" value="{{devedor.id}}">{{devedor.nome}}</mat-option>
         </mat-select>
     </mat-form-field>
+    <mat-form-field style="max-width: 200px;">
+        <mat-label *ngIf="estado.nome == 'entrada' || estado.nome == 'saida'">Meio de Pagamento</mat-label>
+        <!-- <mat-label *ngIf="estado.nome != 'entrada' && estado.nome != 'saida'">Ano Inical</mat-label> -->
+        <mat-select [formControl]="meioPagto">
+            <mat-option *ngFor="let item of meioPagto$ | async" value="{{item}}">{{item}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field style="max-width: 200px;">
+        <mat-label *ngIf="estado.nome == 'entrada' || estado.nome == 'saida'">Classificação</mat-label>
+        <!-- <mat-label *ngIf="estado.nome != 'entrada' && estado.nome != 'saida'">Ano Inical</mat-label> -->
+        <mat-select [formControl]="tag">
+            <mat-option *ngFor="let item of tags$ | async" value="{{item}}">{{item}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label *ngIf="estado.nome == 'entrada' || estado.nome == 'saida'">Status</mat-label>
+        <!-- <mat-label *ngIf="estado.nome != 'entrada' && estado.nome != 'saida'">Ano Inical</mat-label> -->
+        <mat-select [formControl]="status">
+            <mat-option *ngFor="let item of status$ | async" value="{{item}}">{{item}}</mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>

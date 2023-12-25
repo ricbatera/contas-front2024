@@ -8,6 +8,7 @@ import { loadListaSaidas } from '../store/entradasSaidas.actions';
 import { MesAno } from 'src/model/config/mes-ano';
 import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
 import { ItemListaSaidaApi } from 'src/model/general/item-lista-saida-api';
+import { filtrosSaidas } from 'src/model/config/filtrosSaidas';
 
 @Component({
   selector: 'app-saidas',
@@ -33,6 +34,12 @@ export class SaidasComponent {
     anoStart: 0,
     mesEnd: 0,
     anoEnd: 0
+  }
+  filtroGeral: filtrosSaidas ={
+    devedor: '',
+    status: '',
+    meiosPagto: '',
+    classificacao: ''
   }
   anosCarregados:number[] =[]
   mesesCarregados: number[]= []
@@ -78,3 +85,4 @@ export class SaidasComponent {
     this.unsubscribe.complete();
   }
 }
+
