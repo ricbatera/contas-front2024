@@ -23,14 +23,16 @@ import { FiltrosComponent } from './components/filtros/filtros.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { EffectsModule } from '@ngrx/effects';
 import { ESEffects } from './EntradaSaidaModule/store/entradasSaidas.effects';
-import { listaSaidaKey, listaSaidaReducer } from './EntradaSaidaModule/store/entradasSaidas.reducer';
+import { listaEntradaKey, listaEntradaReducer, listaSaidaKey, listaSaidaReducer } from './EntradaSaidaModule/store/entradasSaidas.reducer';
+import { ListaSaidasComponent } from './EntradaSaidaModule/saidas/lista-saidas/lista-saidas.component';
 
 
 @NgModule({
   declarations: [
     SistemaComponent,
     TabCompomentsComponent,
-    FiltrosComponent
+    FiltrosComponent,
+    ListaSaidasComponent
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,7 @@ import { listaSaidaKey, listaSaidaReducer } from './EntradaSaidaModule/store/ent
     StoreModule.forFeature(filtrosFeatureKey, filtrosReducer),
     StoreModule.forFeature(menuSelectedFeatureKey, menuSelectedReducer),
     StoreModule.forFeature(listaSaidaKey, listaSaidaReducer),    
+    StoreModule.forFeature(listaEntradaKey, listaEntradaReducer),    
     EffectsModule.forFeature([ESEffects])
   ],
   exports:[

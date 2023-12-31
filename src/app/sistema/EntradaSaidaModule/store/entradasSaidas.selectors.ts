@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { listaSaidaKey } from "./entradasSaidas.reducer";
-import { IItemListaSaida } from "./entradasSaidas.state";
+import { listaEntradaKey, listaSaidaKey } from "./entradasSaidas.reducer";
+import { IItemListaEntrada, IItemListaSaida } from "./entradasSaidas.state";
 import { ItemListaSaidaApi } from "src/model/general/item-lista-saida-api";
 import { state } from "@angular/animations";
 import { filtrosSaidas } from "src/model/config/filtrosSaidas";
@@ -11,26 +11,21 @@ export const getFirtLoadListaSaidas = createSelector(listaSaidaState, state => s
 export const getLoadingListaSaidas = createSelector(listaSaidaState, state => state.isLoading);
 export const getListaSaidasFull = createSelector(listaSaidaState, state => state.data);
 export const getListaMesesAnosCarregados = createSelector(listaSaidaState, state => state.mesAnoCarregados);
-export const getListaSaidasByFiltro = (filtro: string) => createSelector(listaSaidaState, state => {
-    console.log(filtro);
+export const getListaSaidasByFiltro = (filtro: string, filtros:filtrosSaidas) => createSelector(listaSaidaState, state => {
     let lista: ItemListaSaidaApi[] = state.data.filter(item => item.dataVencimento.slice(0, 7) == filtro);
-    return lista
+    if(filtros.classificacao != "Todos"){
+        lista = lista.filter(item=> item.classificacaoNome == filtros.classificacao);
+    }else if(filtros.devedor != "Todos"){
+        lista = lista.filter(item=> item.devedorNome == filtros.devedor);
+    }else if(filtros.meiosPagto != "Todos"){
+        lista = lista.filter(item=>{ item.saida.meioPagto == filtros.meiosPagto});
+    }else if(filtros.status != "Todos"){
+        lista = lista.filter(item=> item.situacao == filtros.status);
+    }
+    return lista;
 });
 
-export const filtaSaidas = (filtros:filtrosSaidas)=> createSelector(listaSaidaState, state=>{
-    let result: ItemListaSaidaApi[] = state.data;
-    
-    if(filtros.classificacao != "Todos"){
-        result = state.data.filter(item=> item.classificacaoNome == filtros.classificacao);
-    }else if(filtros.devedor != "Todos"){
-        result = state.data.filter(item=> item.devedorNome == filtros.devedor);
-    }else if(filtros.meiosPagto != "Todos"){
-        result = state.data.filter(item=>{ item.saida.meioPagto == filtros.meiosPagto});
-    }else if(filtros.status != "Todos"){
-        result = state.data.filter(item=> item.situacao == filtros.status);
-    }
-    return result;
-});
+export const getFiltroSaidas = createSelector(listaSaidaState, state => state.filtroGeral);
 
 export const getListaStatus = createSelector(listaSaidaState, state =>{
     let lista:string[] = state.data.map(e=> e.situacao);
@@ -52,3 +47,6 @@ export const getListaMeiosPagto = createSelector(listaSaidaState, state =>{
     return unicos;
 });
 
+// selectors de entradas
+const listaEntradaState = createFeatureSelector<IItemListaEntrada>(listaEntradaKey);
+export const getListaEntradasFull = createSelector(listaEntradaState, state => state.data);

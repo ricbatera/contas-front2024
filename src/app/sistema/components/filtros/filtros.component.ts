@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, take } from 'rxjs';
+import { Observable, Subject, take, takeUntil } from 'rxjs';
 import { UtilsService } from 'src/app/services/utils.service';
 import { meses } from 'src/model/general/meses';
 import { getDevedorId, getLoadMesAno, getMenuSelectedConfigs, getMesAno } from '../../store/sistema..selectors';
@@ -14,6 +14,8 @@ import { FiltrosService } from 'src/app/services/filtros.service';
 import filtrosType from 'src/model/config/filtros-enum';
 import {setMesAnoInicialFinal } from '../../store/sistema.actions';
 import { getListaClassificacao, getListaMeiosPagto, getListaStatus } from '../../EntradaSaidaModule/store/entradasSaidas.selectors';
+import { filtrosSaidas } from 'src/model/config/filtrosSaidas';
+import { updateFiltroListaSaidas } from '../../EntradaSaidaModule/store/entradasSaidas.actions';
 
 @Component({
   selector: 'app-filtros',
@@ -21,6 +23,7 @@ import { getListaClassificacao, getListaMeiosPagto, getListaStatus } from '../..
   styleUrls: ['./filtros.component.css']
 })
 export class FiltrosComponent implements OnInit{
+  private unsubscribe = new Subject<void>;
   loading = true;
   meses$: Observable<meses[]>;
   anos$: Observable<number[]>;
@@ -45,9 +48,21 @@ export class FiltrosComponent implements OnInit{
     anoEnd: 0
   }
   firstLoad = true;
-  //se o menu selecionado for o de saídas
-
-  //se o menu selecionar for o de entradas
+  menuSelecionado: IMenuSelected = {
+    nome: '',
+    tabDefault: 0,
+    configs: {
+      titulo: '',
+      menus: []
+    }
+  }
+  filtroGeral: filtrosSaidas ={
+    devedor: 'Todos',
+    status: 'Todos',
+    meiosPagto: 'Todos',
+    classificacao: 'Todos'
+  }
+  listaDevedores:Devedor[] = [];
 
   constructor(private util:UtilsService, private store:Store, private filtrosService: FiltrosService){
     this.meses$ = util.getMeses;
@@ -55,12 +70,13 @@ export class FiltrosComponent implements OnInit{
     store.select(getLoadMesAno).subscribe(res=> {
       util.loadDateYear(res)
     });
-    this.menuSelected$ = store.select(getMenuSelectedConfigs);
-    store.select(getLoadingDevedor).subscribe(res => this.loading = res);
-    this.devedores$ = store.select(getDevedoresAtivos);  
-    this.status$ = store.select(getListaStatus);
-    this.meioPagto$ = store.select(getListaMeiosPagto);
-    this.tags$ = store.select(getListaClassificacao);
+    this.menuSelected$ = store.select(getMenuSelectedConfigs).pipe(takeUntil(this.unsubscribe));
+    store.select(getLoadingDevedor).pipe(takeUntil(this.unsubscribe)).subscribe(res => this.loading = res);
+    this.devedores$ = store.select(getDevedoresAtivos).pipe(takeUntil(this.unsubscribe));  
+    this.status$ = store.select(getListaStatus).pipe(takeUntil(this.unsubscribe));
+    this.meioPagto$ = store.select(getListaMeiosPagto).pipe(takeUntil(this.unsubscribe));
+    this.tags$ = store.select(getListaClassificacao).pipe(takeUntil(this.unsubscribe));    
+    store.select(getDevedoresAtivos).pipe(takeUntil(this.unsubscribe)).subscribe(res=> this.listaDevedores = res);
   }
   
   handleSelectsChanged(){
@@ -79,6 +95,32 @@ export class FiltrosComponent implements OnInit{
     this.mesFinal.valueChanges.subscribe(value=>{
       this.atual.mesEnd = parseInt(value);
       this.store.dispatch(setMesAnoInicialFinal({payload:this.atual}));
+    })
+    this.devedor.valueChanges.subscribe(value=>{
+      const payload = {...this.filtroGeral};
+      this.listaDevedores.forEach(e=> {if(e.id == parseInt(value)) {
+        payload.devedor = e.nome
+        this.filtroGeral.devedor = e.nome
+      }})
+      this.store.dispatch(updateFiltroListaSaidas({payload}));
+    })
+    this.status.valueChanges.subscribe(value=>{
+      const payload = {...this.filtroGeral};
+      this.filtroGeral.status = value;
+      payload.status = value
+      this.store.dispatch(updateFiltroListaSaidas({payload}));
+    })
+    this.meioPagto.valueChanges.subscribe(value=>{
+      const payload = {...this.filtroGeral};
+      this.filtroGeral.meiosPagto = value;
+      payload.meiosPagto = value
+      this.store.dispatch(updateFiltroListaSaidas({payload}));
+    })
+    this.tag.valueChanges.subscribe(value=>{
+      const payload = {...this.filtroGeral};
+      this.filtroGeral.classificacao = value;
+      payload.classificacao = value
+      this.store.dispatch(updateFiltroListaSaidas({payload}));
     })
   }
 
@@ -102,6 +144,9 @@ export class FiltrosComponent implements OnInit{
       }
     });
     this.selecionarPrimeiroItem();
+    // this.store.select(getMenuSelectedConfigs).subscribe(res=>{
+    //   this.menuSelecionado = res;
+    // })
     this.handleSelectsChanged();
   }
 
@@ -141,5 +186,11 @@ export class FiltrosComponent implements OnInit{
           break;
       }
     })
+  }
+
+  ngOnDestroy() {
+    console.log("Encerrando o componente - Filtros");
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 }

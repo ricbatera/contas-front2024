@@ -8,10 +8,13 @@ import { SistemaModule } from '../../sistema.module';
 @NgModule({
   declarations: [
     SaidasComponent,
+    // ListaSaidasComponent,
   ],
   imports: [
     CommonModule,
-    SistemaModule
+    SistemaModule,
+  ], exports: [
+  //  ListaSaidasComponent
   ]
 })
 export class SaidasModule { }

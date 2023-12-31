@@ -1,0 +1,43 @@
+<!-- <div *ngFor="let item of dataSource$ | async;">
+<p>{{item.saida.nome}}</p></div> -->
+
+<div class="corpo">
+    <main class="table" id="customers_table">
+        <section class="table__body">
+            <div *ngIf="(isLoading | async)"  class="loading">
+                <h2>Carregando lista de saídas...</h2>
+                <mat-spinner></mat-spinner>
+            </div>
+            <table *ngIf="!(isLoading | async)">
+                <thead>
+                    <tr class="teste">
+                        <th>Nome<span class="icon-arrow">&UpArrow;</span></th>
+                        <th>Valor<span class="icon-arrow">&UpArrow;</span></th>
+                        <th>Classificação<span class="icon-arrow">&UpArrow;</span></th>
+                        <th>Devedor<span class="icon-arrow">&UpArrow;</span></th>
+                        <th>Meio Pagto<span class="icon-arrow">&UpArrow;</span></th>
+                        <th>Vencimento<span class="icon-arrow">&UpArrow;</span></th>
+                        <th>Status<span class="icon-arrow">&UpArrow;</span></th>
+                        <th>Detalhes<span class="icon-arrow">&UpArrow;</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of dataSource$ | async;">
+                        <td>{{item.saida.nome}} ({{item.contagemParcelas}})</td>
+                        <td>{{item.valor | currency:'BRL'}}</td>
+                        <td>{{item.classificacaoNome}}</td>
+                        <td>{{item.devedorNome}}</td>
+                        <td>Corrigir meio de pagot</td>
+                        <td>{{item.dataVencimento | date: 'shortDate'}}</td>
+                        <td>
+                            <p *ngIf="item.situacao == 'Aberto'" class="status pending">{{item.situacao}}</p>
+                            <p *ngIf="item.situacao == 'Pago'" class="status delivered">{{item.situacao}}</p>
+                            
+                        </td>
+                        <td>Botoes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>

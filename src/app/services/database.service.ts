@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { Devedor } from 'src/model/general/devedor';
 import { ItemListaSaidaApi } from 'src/model/general/item-lista-saida-api';
+import { ItemListaEntradaApi } from 'src/model/general/item-lista-entrada-api';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,9 @@ export class DatabaseService {
   }
   getitensSaida(mes: number, ano: number): Observable<ItemListaSaidaApi[]> {
     return this.httpClient.get<ItemListaSaidaApi[]>(`${this.API_URL}saidas/listar-mensal?mes=${mes}&ano=${ano}&tags=All`);
+  }
+  getitensEntrada(mes: number, ano: number): Observable<ItemListaEntradaApi[]> {
+    return this.httpClient.get<ItemListaEntradaApi[]>(`${this.API_URL}entradas/listar-mensal?mes=${mes}&ano=${ano}`);
   }
 
 
