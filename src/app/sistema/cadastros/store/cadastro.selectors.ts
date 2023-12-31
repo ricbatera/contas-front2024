@@ -10,6 +10,6 @@ export const getLoadingDevedor = createSelector(devedorAnoState, state=> state.i
 export const getDevedoresAtivos = createSelector(devedorAnoState, state=> {
     let lista: Devedor[] = [...state.devedores  .filter(e=> e.status)]
     lista.unshift({id:-1, nome: "Todos", status: true})
-    lista.unshift({id:0, nome: "Eu", status: true})
+    lista.unshift({id:0, nome: "Minha", status: true})
     return lista;
 });

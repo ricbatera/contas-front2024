@@ -27,14 +27,20 @@
                         <td>{{item.valor | currency:'BRL'}}</td>
                         <td>{{item.classificacaoNome}}</td>
                         <td>{{item.devedorNome}}</td>
-                        <td>Corrigir meio de pagot</td>
+                        <td>
+                            <p *ngIf="item.fatura != null">{{item.fatura.cartao?.nome}}</p>
+                            <p *ngIf="item.fatura == null">Débito em Conta</p>
+                        </td>
                         <td>{{item.dataVencimento | date: 'shortDate'}}</td>
+                        <td class="icones">
+                            <span class="pointer" matTooltip="Editar" matTooltipPosition="above" matTooltipHideDelay="100"><i class="fad fa-edit"></i></span>
+                            <span class="pointer" *ngIf="item.situacao == 'Aberto'" matTooltip="Pagar" matTooltipPosition="above" matTooltipHideDelay="100"><i class="fad fa-wallet"></i></span>
+                            <span class="pointer" *ngIf="item.situacao == 'Aberto'" matTooltip="Deletar" matTooltipPosition="above" matTooltipHideDelay="100"><i class="fad fa-trash-alt"></i></span>
+                        </td>
                         <td>
                             <p *ngIf="item.situacao == 'Aberto'" class="status pending">{{item.situacao}}</p>
-                            <p *ngIf="item.situacao == 'Pago'" class="status delivered">{{item.situacao}}</p>
-                            
+                            <p *ngIf="item.situacao == 'Pago'" class="status delivered">{{item.situacao}}</p>                            
                         </td>
-                        <td>Botoes</td>
                     </tr>
                 </tbody>
             </table>

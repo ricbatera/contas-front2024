@@ -69,8 +69,6 @@ export class ListaSaidasComponent {
       this.store.dispatch(loadListaSaidas({ payload: this.filtroAtual }));
     };
     this.carregaListaByfiltro();
-    //this.dataSource$ = this.store.select(getListaSaidasByFiltro(`${this.filtroAtual.anoStart}-${this.filtroAtual.mesStart}`, this.filtroGeral)).pipe(takeUntil(this.unsubscribe));
-    //this.dataSource$.subscribe(res=>{console.table(res)})
   }
 
   ngAfterContentInit(): void {

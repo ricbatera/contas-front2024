@@ -15,11 +15,14 @@ export const getListaSaidasByFiltro = (filtro: string, filtros:filtrosSaidas) =>
     let lista: ItemListaSaidaApi[] = state.data.filter(item => item.dataVencimento.slice(0, 7) == filtro);
     if(filtros.classificacao != "Todos"){
         lista = lista.filter(item=> item.classificacaoNome == filtros.classificacao);
-    }else if(filtros.devedor != "Todos"){
+    }
+    if(filtros.devedor != "Todos"){
         lista = lista.filter(item=> item.devedorNome == filtros.devedor);
-    }else if(filtros.meiosPagto != "Todos"){
+    }
+    if(filtros.meiosPagto != "Todos"){
         lista = lista.filter(item=>{ item.saida.meioPagto == filtros.meiosPagto});
-    }else if(filtros.status != "Todos"){
+    }
+    if(filtros.status != "Todos"){
         lista = lista.filter(item=> item.situacao == filtros.status);
     }
     return lista;

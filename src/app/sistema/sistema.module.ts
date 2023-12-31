@@ -25,6 +25,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { ESEffects } from './EntradaSaidaModule/store/entradasSaidas.effects';
 import { listaEntradaKey, listaEntradaReducer, listaSaidaKey, listaSaidaReducer } from './EntradaSaidaModule/store/entradasSaidas.reducer';
 import { ListaSaidasComponent } from './EntradaSaidaModule/saidas/lista-saidas/lista-saidas.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { ListaSaidasComponent } from './EntradaSaidaModule/saidas/lista-saidas/l
     MatSidenavModule,
     // EntradaSaidaModule,
     // CadastrosModule,
+    MatTooltipModule,
     MatButtonModule,
     MatTabsModule,
     MatFormFieldModule,

@@ -11,6 +11,15 @@ h2{
     font-weight: lighter;
 }
 
+.icones{
+    display: flex;
+    gap: 10px;    
+}
+
+.pointer{
+    cursor: pointer;
+}
+
 @media print {
     .table, .table__body {
      overflow: visible;
